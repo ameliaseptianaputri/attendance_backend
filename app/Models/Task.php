@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AttendanceModel extends Model
+class Task extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'in',
-        'out',
+        'title',
+        'description',
+        'file_path',
+        'user_id',
         'status',
-        'user_id'
     ];
-
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
     
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->text('keterangan'); 
             $table->text('pesan')->nullable();
-            $table->bigInteger('attendance_id')->nullable();
-            $table->string('file_path')->nullable();
+            $table->bigInteger('attendance_id');
             $table->timestamps();
            
         });

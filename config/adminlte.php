@@ -258,13 +258,13 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => 'profile',
+    'profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -304,22 +304,36 @@ return [
         // General menu item
         [
             'text' => 'Dashboard',
-            'url'  => 'home',
+            'url'  => 'dashboard',
             'icon' => 'fas fa-home',  // Ikon yang lebih umum untuk dashboard
             'label_color' => 'success',
         ],
         [
             'text' => 'Input your Attendance',
-            'url'  => 'pages',
+            'url'  => 'attendance',
             'icon' => 'fas fa-calendar-check',  // Ikon yang lebih cocok untuk absensi
+            'can'  => 'isUser',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Attendance',
+            'url'  => 'attendance',
+            'icon' => 'fas fa-calendar-check',  // Ikon yang lebih cocok untuk absensi
+            'can'  => 'isAdmin',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'To Do List',
+            'url'  => 'ToDoList/index',
+            'icon' => 'fas fa-list',  // Ikon yang lebih cocok untuk daftar tugas
             'can'  => 'isUser',
             'label_color' => 'success',
         ],
         [
             'text' => 'To Do List',
             'url'  => 'ToDoList/index',
-            'icon' => 'fas fa-tasks',  // Ikon yang lebih cocok untuk daftar tugas
-            'can'  => 'isUser',
+            'icon' => 'fas fa-list',  // Ikon yang lebih cocok untuk daftar tugas
+            'can'  => 'isAdmin',
             'label_color' => 'success',
         ],
         [
@@ -327,6 +341,20 @@ return [
             'url'  => 'user',
             'icon' => 'fas fa-user',  // Ikon yang lebih sederhana dan cocok untuk pengguna
             'can'  => 'isAdmin',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Task',
+            'url'  => 'tasks',
+            'icon' => 'fas fa-tasks',
+            'can'  => 'isAdmin',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Task',
+            'url'  => 'tasks',
+            'icon' => 'fas fa-tasks',
+            'can'  => 'isUser',
             'label_color' => 'success',
         ],
         
