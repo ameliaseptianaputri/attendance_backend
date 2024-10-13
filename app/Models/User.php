@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'profile',
         'telp',
         'tempat_lahir',
         'tanggal_lahir',
@@ -30,8 +31,8 @@ class User extends Authenticatable
         'jurusan',
         'sekolah',
         'agama',
-        'alamat',
-    ];    
+        'alamat'
+    ];
 
     /**
      * The attributes that should be hidden for serialization.

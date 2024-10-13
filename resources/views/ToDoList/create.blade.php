@@ -4,7 +4,7 @@
 <div class="jumbotron py-2 px-1 bg-light text-center mb-4">
     <br>
     <h1 style="color: #343a40;">
-        Tambah To-Do List
+        Tambah To Do List
     </h1>
 </div>
 <div class="card">
@@ -26,8 +26,8 @@
                 <input type="text" name="content" class="form-control" id="content" placeholder="Content" value="{{ old('content') }}" required>
             </div>
             <div class="form-group">
-                <label for="keterangan">Description</label>
-                <textarea name="keterangan" class="form-control" id="description" placeholder="Keterangan" required>{{ old('keterangan') }}</textarea>
+                <label for="keterangan">Keterangan</label>
+                <textarea name="keterangan" class="form-control" id="keterangan" placeholder="Keterangan" required>{{ old('keterangan') }}</textarea>
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
@@ -40,8 +40,8 @@
                 <label for="date">Date</label>
                 <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}" required>
             </div>                
-            <a href="{{ route('ToDoList.index') }}" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ route('ToDoList.index') }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
     <!-- /.card-body -->

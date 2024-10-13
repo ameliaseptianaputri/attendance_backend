@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('in');
             $table->string('out')->nullable();
-            $table->string('in_status')->nullable();  // Kolom untuk status IN
-            $table->string('out_status')->nullable(); // Kolom untuk status OUT
+            $table->string('status');
             $table->bigInteger('user_id');
             $table->timestamps();
         });
+        
     }
 
     /**

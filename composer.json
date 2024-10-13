@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "endroid/qr-code": "^5.0",
         "jeroennoten/laravel-adminlte": "^3.12",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",

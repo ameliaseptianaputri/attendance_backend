@@ -6,91 +6,90 @@ use App\Models\AttendanceModel;
 use App\Models\ToDoList;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Pastikan ini ada
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $users = User::all(); 
-
-        return view('user', compact('users')); 
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
-//     public function getUser()
-// {
-//     $user = Auth::user(); 
-//     return response()->json($user);
-// }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'role' => 'required',
+            'profile' => 'nullable',
+            'telp' => 'nullable',
+            'tempat_lahir' => 'nullable',
+            'tanggal_lahir' => 'nullable|date',
+            'jenis_kelamin' => 'nullable',
+            'status' => 'nullable',
+            'jurusan' => 'nullable',
+            'sekolah' => 'nullable',
+            'agama' => 'nullable',
+            'alamat' => 'nullable',
+        ]);
+
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        User::create($validatedData);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'nullable|min:6',
+            'role' => 'required',
+            'profile' => 'nullable',
+            'telp' => 'nullable',
+            'tempat_lahir' => 'nullable',
+            'tanggal_lahir' => 'nullable|date',
+            'jenis_kelamin' => 'nullable',
+            'status' => 'nullable',
+            'jurusan' => 'nullable',
+            'sekolah' => 'nullable',
+            'agama' => 'nullable',
+            'alamat' => 'nullable',
+        ]);
+
+        if ($request->password) {
+            $validatedData['password'] = bcrypt(value: $validatedData['password']);
+        }
+
+        $user->update(attributes: $validatedData);
+
+        return redirect()->route(route: 'users.index')->with(key: 'success', value: 'User updated successfully.');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $attendance = AttendanceModel::where('user_id', $id)->get(); 
+        $attendance = AttendanceModel::where('user_id', $id)->get();
         $todos = ToDoList::orderBy('date')->where('user_id', $id)->get()->groupBy('date');
 
-        return view('show-user', compact('user', 'attendance', 'todos'));
-    }
-    
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function updateStatus($id)
-    {
-        $todo = ToDoList::findOrFail($id);
-        $todo->status = $todo->status == 'Completed' ? 'Pending' : 'Completed';
-        if ($todo->status == 'Pending') {
-            $todo->pesan = null; 
-        }
-        $todo->save();
-
-        return redirect()->route('show.user', ['id' => $todo->user_id])->with('success', 'Status berhasil diupdate.');
-    }
-
-    public function pesan(Request $request, $id)
-    {
-        $request->validate([
-            'pesan' => 'required|string',
-        ]);
-
-        $todo = ToDoList::findOrFail($id);
-        $todo->pesan = $request->pesan;
-        $todo->save();
-
-        return redirect()->route('show.user', ['id' => $todo->user_id])->with('success', 'Pesan berhasil disimpan.');
+        return view('users.show', compact('user', 'attendance', 'todos'));
     }
 }
